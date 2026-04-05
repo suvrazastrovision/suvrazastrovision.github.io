@@ -7,18 +7,26 @@
   --border: #e7e4de;
   --accent: #2f5d73;
   --accent-light: #eef4f7;
+  --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.05);
+  --shadow-button: 0 8px 18px rgba(0, 0, 0, 0.08);
 }
 
 * {
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   font-family: Inter, Arial, sans-serif;
-  line-height: 1.65;
+  line-height: 1.7;
   background: var(--bg);
   color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 header {
@@ -27,11 +35,12 @@ header {
   backdrop-filter: blur(10px);
   position: sticky;
   top: 0;
+  z-index: 1000;
 }
 
 .nav {
   max-width: 1180px;
-  margin: auto;
+  margin: 0 auto;
   padding: 22px 32px;
   display: flex;
   justify-content: space-between;
@@ -51,7 +60,8 @@ header {
   text-decoration: none;
   color: var(--text);
   font-size: 1rem;
-  transition: color 0.2s ease;
+  font-weight: 500;
+  transition: color 0.2s ease, opacity 0.2s ease;
 }
 
 .nav a:hover,
@@ -63,42 +73,72 @@ header {
   margin: 0;
   font-size: 1.9rem;
   font-weight: 700;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
 }
 
 .hero {
-  max-width: 920px;
+  max-width: 860px;
   margin: 0 auto;
-  padding: 120px 32px 90px;
+  padding: 110px 32px 90px;
 }
 
 .tagline {
   font-size: 0.92rem;
   color: var(--soft);
-  margin-bottom: 26px;
+  margin-bottom: 22px;
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
 
 .hero h2 {
-  font-size: clamp(2.8rem, 5vw, 4.5rem);
-  line-height: 1.05;
-  margin: 0 0 24px;
+  font-size: clamp(2.5rem, 5vw, 4.2rem);
+  line-height: 1.08;
+  margin: 0 0 28px;
   letter-spacing: -0.04em;
 }
 
 .intro {
-  font-size: 1.35rem;
+  font-size: 1.28rem;
   color: #4c4c4c;
   max-width: 760px;
   margin: 0 0 34px;
+  line-height: 1.75;
+}
+
+/* 🔥 JUSTIFIED TEXT (KEY PART) */
+.hero p {
+  font-size: 1.06rem;
+  color: #2d2d2d;
+  line-height: 1.9;
+  margin: 0 0 24px;
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+}
+
+.hero p:last-of-type {
+  margin-bottom: 0;
+}
+
+.hero a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.hero a:hover {
+  border-bottom-color: var(--accent);
 }
 
 .buttons {
   display: flex;
   gap: 14px;
   flex-wrap: wrap;
-  margin-bottom: 54px;
+  margin: 38px 0 54px;
 }
 
 .btn {
@@ -117,7 +157,7 @@ header {
 .btn-primary {
   background: var(--text);
   color: white;
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--shadow-button);
 }
 
 .btn-primary:hover {
@@ -134,13 +174,13 @@ header {
 }
 
 .home-section {
-  margin-top: 10px;
-  padding-top: 12px;
+  margin-top: 18px;
+  padding-top: 10px;
 }
 
 .home-section h3 {
   margin-bottom: 18px;
-  font-size: 1.55rem;
+  font-size: 1.5rem;
   letter-spacing: -0.02em;
 }
 
@@ -156,8 +196,9 @@ header {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 999px;
-  font-size: 0.98rem;
+  font-size: 0.97rem;
   color: #444;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
 }
 
 footer {
@@ -166,9 +207,15 @@ footer {
   color: var(--muted);
   border-top: 1px solid var(--border);
   margin-top: 80px;
-  font-size: 0.98rem;
+  font-size: 0.96rem;
 }
 
+/* Optional tighter width for About page */
+.content-narrow {
+  max-width: 780px;
+}
+
+/* Responsive */
 @media (max-width: 768px) {
   .nav {
     flex-direction: column;
@@ -182,14 +229,28 @@ footer {
   }
 
   .hero {
-    padding: 88px 24px 64px;
+    padding: 82px 24px 64px;
+  }
+
+  .hero h2 {
+    font-size: clamp(2rem, 8vw, 3rem);
   }
 
   .intro {
-    font-size: 1.12rem;
+    font-size: 1.08rem;
+  }
+
+  .hero p {
+    font-size: 1rem;
+    line-height: 1.82;
   }
 
   .logo {
     font-size: 1.6rem;
+  }
+
+  .buttons {
+    margin-top: 28px;
+    margin-bottom: 42px;
   }
 }
