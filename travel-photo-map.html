@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Travel Photography Map</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f7f7f7;
+      color: #1a1a1a;
+    }
+    header {
+      padding: 28px 20px 12px;
+      text-align: center;
+      background: white;
+      border-bottom: 1px solid #e5e5e5;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+    header p {
+      margin: 10px auto 0;
+      max-width: 760px;
+      color: #555;
+      line-height: 1.5;
+    }
+    .topbar {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+    .topbar a {
+      text-decoration: none;
+      color: white;
+      background: #111827;
+      padding: 10px 16px;
+      border-radius: 999px;
+      font-size: 0.95rem;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 24px auto;
+      padding: 0 16px 40px;
+    }
+    #map {
+      height: 75vh;
+      min-height: 520px;
+      width: 100%;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      border: 1px solid #ddd;
+      background: white;
+    }
+    .leaflet-popup-content {
+      width: 260px !important;
+      margin: 12px;
+    }
+    .popup-card h3 {
+      margin: 0 0 6px;
+      font-size: 1rem;
+    }
+    .popup-card p {
+      margin: 0 0 10px;
+      color: #555;
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+    .popup-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 10px;
+      display: block;
+      margin-bottom: 10px;
+    }
+    .note {
+      margin-top: 16px;
+      text-align: center;
+      color: #666;
+      font-size: 0.95rem;
+    }
+    @media (max-width: 768px) {
+      header h1 { font-size: 1.6rem; }
+      #map { height: 68vh; min-height: 460px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>World Photography Map</h1>
+    <p>
+      Click any marked city to open a pop-up with my photography. This page can be linked from my GitHub Pages portfolio.
+    </p>
+    <div class="topbar">
+      <a href="index.html">← Back to Home</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <div id="map"></div>
+    <p class="note">Replace the example image paths and locations with your own cities and photos.</p>
+  </main>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    const map = L.map('map', {
+      worldCopyJump: true,
+      minZoom: 2,
+      maxZoom: 10
+    }).setView([25, 10], 2);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    const photoLocations = [
+      {
+        city: 'Berlin',
+        country: 'Germany',
+        coords: [52.52, 13.405],
+        image: 'images/berlin.jpg',
+        text: 'Urban lines, winter light, and street textures from Berlin.'
+      },
+      {
+        city: 'Paris',
+        country: 'France',
+        coords: [48.8566, 2.3522],
+        image: 'images/paris.jpg',
+        text: 'Architecture, reflections, and quiet city moments in Paris.'
+      },
+      {
+        city: 'Tokyo',
+        country: 'Japan',
+        coords: [35.6762, 139.6503],
+        image: 'images/tokyo.jpg',
+        text: 'Neon, rhythm, and layered city scenes from Tokyo.'
+      },
+      {
+        city: 'New York',
+        country: 'USA',
+        coords: [40.7128, -74.006],
+        image: 'images/newyork.jpg',
+        text: 'Motion, geometry, and energy captured in New York.'
+      }
+    ];
+
+    photoLocations.forEach(location => {
+      const popupHTML = `
+        <div class="popup-card">
+          <img src="${location.image}" alt="${location.city} photo">
+          <h3>${location.city}, ${location.country}</h3>
+          <p>${location.text}</p>
+        </div>
+      `;
+
+      L.marker(location.coords)
+        .addTo(map)
+        .bindPopup(popupHTML);
+    });
+  </script>
+</body>
+</html>
