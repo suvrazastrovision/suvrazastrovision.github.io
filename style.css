@@ -76,10 +76,19 @@ header {
   letter-spacing: -0.03em;
 }
 
+.logo a {
+  text-decoration: none;
+  color: inherit;
+}
+
 .hero {
   max-width: 860px;
   margin: 0 auto;
   padding: 110px 32px 90px;
+}
+
+.content-narrow {
+  max-width: 780px;
 }
 
 .tagline {
@@ -105,7 +114,6 @@ header {
   line-height: 1.75;
 }
 
-/* 🔥 JUSTIFIED TEXT (KEY PART) */
 .hero p {
   font-size: 1.06rem;
   color: #2d2d2d;
@@ -201,6 +209,23 @@ header {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
 }
 
+.contact-links {
+  margin-top: 30px;
+}
+
+.contact-links p {
+  margin-bottom: 16px;
+}
+
+.contact-links a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.contact-links a:hover {
+  text-decoration: underline;
+}
+
 footer {
   text-align: center;
   padding: 34px 20px;
@@ -210,12 +235,6 @@ footer {
   font-size: 0.96rem;
 }
 
-/* Optional tighter width for About page */
-.content-narrow {
-  max-width: 780px;
-}
-
-/* Responsive */
 @media (max-width: 768px) {
   .nav {
     flex-direction: column;
