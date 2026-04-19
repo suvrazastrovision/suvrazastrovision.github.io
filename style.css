@@ -69,7 +69,8 @@ header {
   color: var(--accent);
 }
 
-.logo {
+.logo,
+h1.logo {
   margin: 0;
   font-size: 1.9rem;
   font-weight: 700;
@@ -80,6 +81,9 @@ header {
 .logo a {
   text-decoration: none;
   color: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
 }
 
 .hero {
@@ -265,7 +269,8 @@ footer {
     line-height: 1.82;
   }
 
-  .logo {
+  .logo,
+  h1.logo {
     font-size: 1.6rem;
   }
 
