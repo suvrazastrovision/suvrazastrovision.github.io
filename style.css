@@ -104,6 +104,31 @@ h1.logo {
   letter-spacing: 0.08em;
 }
 
+.hero > .tagline {
+  color: var(--soft);
+}
+
+.page-heading {
+  margin: 0 0 28px;
+}
+
+.hero .page-heading .tagline {
+  margin: 0 0 22px;
+  color: var(--soft);
+  font-size: 0.92rem;
+  line-height: 1.4;
+  letter-spacing: 0.08em;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.hero .page-heading h2 {
+  margin: 0;
+  font-size: clamp(2.5rem, 5vw, 4.2rem);
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+}
+
 .hero h2 {
   font-size: clamp(2.5rem, 5vw, 4.2rem);
   line-height: 1.08;
@@ -374,7 +399,7 @@ h1.logo {
 .contact-intro { max-width: 760px; }
 
 .about-copy {
-  margin-top: 54px;
+  margin-top: 0;
 }
 
 .about-copy p {
@@ -385,7 +410,8 @@ h1.logo {
 
 .about-copy p:first-child {
   color: #4c4c4c;
-  font-size: 1.18rem;
+  margin: 0 0 34px;
+  font-size: 1.28rem;
   line-height: 1.75;
 }
 
