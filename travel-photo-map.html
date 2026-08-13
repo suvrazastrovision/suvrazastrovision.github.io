@@ -27,16 +27,16 @@
     .leaflet-popup-content-wrapper { padding:0; overflow:hidden; border-radius:14px; box-shadow:0 18px 45px rgba(15,25,30,.25); }
     .leaflet-popup-content { width:290px!important; margin:0; }
     .leaflet-popup-tip { box-shadow:none; }
-    .photo-card img { display:block; width:100%; height:185px; object-fit:cover; background:#e8e8e4; }
+    .photo-card img { display:block; width:100%; height:300px; object-fit:contain; background:#171714; }
     .photo-copy { padding:16px 17px 18px; }
     .photo-copy small { color:var(--accent); font-size:.68rem; font-weight:700; letter-spacing:.09em; text-transform:uppercase; }
     .photo-copy h2 { margin:5px 0 7px; font-size:1.15rem; letter-spacing:-.025em; }
     .photo-copy p { margin:0; color:var(--muted); font-size:.82rem; line-height:1.5; }
-    .photo-marker { width:50px; height:50px; padding:3px; overflow:hidden; background:#fff; border:2px solid #fff; border-radius:50%; box-shadow:0 6px 20px rgba(11,27,34,.35); transition:transform .2s ease; }
+    .photo-marker { width:56px; height:56px; aspect-ratio:1; padding:3px; overflow:hidden; background:#fff; border:2px solid #fff; border-radius:999px; box-shadow:0 5px 16px rgba(11,27,34,.32); transform:translateZ(0); transition:transform .2s ease; }
     .photo-marker:hover { transform:scale(1.12); }
-    .photo-marker img { width:100%; height:100%; object-fit:cover; border-radius:50%; }
+    .photo-marker img { display:block; width:100%; height:100%; aspect-ratio:1; object-fit:cover; border-radius:999px; }
     .leaflet-control-attribution { background:rgba(255,255,255,.76)!important; }
-    @media(max-width:680px){ .map-header{top:10px;left:10px;width:min(270px,calc(100% - 20px));padding:14px 15px}.map-header h1{font-size:1.3rem}.intro{display:none}.header-row{margin-top:10px}.leaflet-top.leaflet-right{top:112px}.leaflet-popup-content{width:250px!important}.photo-card img{height:155px} }
+    @media(max-width:680px){ .map-header{top:10px;left:10px;width:min(270px,calc(100% - 20px));padding:14px 15px}.map-header h1{font-size:1.3rem}.intro{display:none}.header-row{margin-top:10px}.leaflet-top.leaflet-right{top:112px}.leaflet-popup-content{width:250px!important}.photo-card img{height:260px} }
   </style>
 </head>
 <body>
@@ -52,10 +52,34 @@
   <script>
     const places = [
       {
-        city: 'Berlin', country: 'Germany', coordinates: [52.52, 13.405],
-        image: 'images/Berlin.jpg',
-        alt: 'A cup of coffee in a bright Berlin café',
-        story: 'Everyday warmth, quiet corners, and the small rituals that make a city feel familiar.'
+        city: '33.8055° S, 18.3691° E', country: 'Robben Island, South Africa', coordinates: [-33.8055, 18.3691],
+        image: 'images/southafrica/tm.jpg',
+        alt: 'Table Mountain viewed across Table Bay from Robben Island',
+        story: 'Table Mountain across Table Bay, seen from Robben Island.'
+      },
+      {
+        city: '45.9763° N, 7.6586° E', country: 'Matterhorn, Switzerland', coordinates: [45.9763, 7.6586],
+        image: 'images/swissalps/matterhorn.jpg',
+        alt: 'A stone cairn and yellow flower beneath the Matterhorn',
+        story: 'A moment of balance beneath the Matterhorn.'
+      },
+      {
+        city: '46.5279° N, 11.7363° E', country: 'Sassolungo, Dolomites, Italy', coordinates: [46.5279, 11.7363],
+        image: 'images/italy/dolomites.jpg',
+        alt: 'Wildflowers beneath the Sassolungo peaks in the Italian Dolomites',
+        story: 'Summer wildflowers beneath the Sassolungo peaks.'
+      },
+      {
+        city: '37.7172° N, 119.6619° W', country: 'Yosemite Valley, California', coordinates: [37.7172, -119.6619],
+        image: 'images/cali/yose.png',
+        alt: 'El Capitan and granite cliffs above the Merced River in Yosemite Valley',
+        story: 'Granite walls and still water in Yosemite Valley.'
+      },
+      {
+        city: '32.8897° N, 117.2469° W', country: 'Torrey Pines, San Diego', coordinates: [32.8897, -117.2469],
+        image: 'images/sandiego/sdbay.jpg',
+        alt: 'Pacific coastline viewed from the golden cliffs at Torrey Pines',
+        story: 'Pacific light along the cliffs of Torrey Pines.'
       }
       // Add future photographs here: { city, country, coordinates, image, alt, story }
     ];
@@ -74,7 +98,7 @@
 
     places.forEach(place => {
       const icon = L.divIcon({
-        className:'', iconSize:[50,50], iconAnchor:[25,25], popupAnchor:[0,-24],
+        className:'photo-div-icon', iconSize:[56,56], iconAnchor:[28,28], popupAnchor:[0,-29],
         html:`<div class="photo-marker"><img src="${place.image}" alt="" /></div>`
       });
       const popup = `<article class="photo-card"><img src="${place.image}" alt="${place.alt}" /><div class="photo-copy"><small>${place.country}</small><h2>${place.city}</h2><p>${place.story}</p></div></article>`;
