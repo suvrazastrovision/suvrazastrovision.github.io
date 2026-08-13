@@ -1,3 +1,3 @@
-## 🌐 Live Website...WIP 
+## 🌐 Live Website
 
 👉 https://suvrazastrovision.github.io/ 
