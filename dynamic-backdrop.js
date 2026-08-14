@@ -67,7 +67,7 @@
     ctx.clearRect(0, 0, width, height);
 
     const glow = ctx.createRadialGradient(pointer.x * width, height * 0.66, 0, pointer.x * width, height * 0.66, width * 0.55);
-    glow.addColorStop(0, isDark ? 'rgba(18, 115, 190, 0.11)' : 'rgba(112, 190, 218, 0.12)');
+    glow.addColorStop(0, isDark ? 'rgba(18, 115, 190, 0.11)' : 'rgba(86, 174, 207, 0.2)');
     glow.addColorStop(1, isDark ? 'rgba(0, 26, 58, 0)' : 'rgba(143, 201, 223, 0)');
     ctx.fillStyle = glow;
     ctx.fillRect(0, 0, width, height);
@@ -86,7 +86,7 @@
         if (targetIndex < 0 || !positions[targetIndex]) return;
         const target = positions[targetIndex];
         const fade = Math.max(0, 1 - Math.abs(here.x - pointer.x * width) / (width * 0.8));
-        const lineAlpha = isDark ? 0.055 + fade * 0.12 : 0.035 + fade * 0.075;
+        const lineAlpha = isDark ? 0.055 + fade * 0.12 : 0.09 + fade * 0.14;
         ctx.strokeStyle = isDark
           ? `rgba(53, 155, 229, ${lineAlpha})`
           : `rgba(70, 145, 174, ${lineAlpha})`;
@@ -98,7 +98,7 @@
 
       const pulse = 0.65 + Math.sin(time * 0.0015 + point.phase) * 0.35;
       const radius = 0.8 + point.brightness * 1.5;
-      const nodeAlpha = point.brightness * pulse * (isDark ? 1 : 0.48);
+      const nodeAlpha = point.brightness * pulse * (isDark ? 1 : 0.78);
       ctx.fillStyle = isDark
         ? `rgba(130, 211, 255, ${nodeAlpha})`
         : `rgba(65, 142, 172, ${nodeAlpha})`;
