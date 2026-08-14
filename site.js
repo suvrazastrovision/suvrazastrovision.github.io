@@ -1,4 +1,5 @@
-const themeKey = 'suvra-theme';
+// Versioned so the dark-first design becomes the default for returning visitors too.
+const themeKey = 'suvra-theme-v2';
 const root = document.documentElement;
 
 function preferredTheme() {
