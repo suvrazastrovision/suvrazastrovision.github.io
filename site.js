@@ -6,7 +6,7 @@ function preferredTheme() {
     const savedTheme = localStorage.getItem(themeKey);
     if (savedTheme === 'light' || savedTheme === 'dark') return savedTheme;
   } catch (_) {}
-  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  return 'dark';
 }
 
 function applyTheme(theme) {
