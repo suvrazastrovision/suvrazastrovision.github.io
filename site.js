@@ -44,3 +44,12 @@ document.querySelector('.menu')?.addEventListener('click', e => {
   const isOpen = links.classList.toggle('open');
   e.currentTarget.setAttribute('aria-expanded', isOpen);
 });
+
+// Ask before following links explicitly marked for visitor confirmation.
+document.querySelectorAll('a[data-confirm-visit]').forEach(link => {
+  link.addEventListener('click', event => {
+    if (!window.confirm(link.dataset.confirmVisit)) {
+      event.preventDefault();
+    }
+  });
+});
