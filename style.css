@@ -1,4 +1,5 @@
 :root {
+  --page-width: 980px;
   --bg: #ffffff;
   --surface: #ffffff;
   --text: #1f1f1f;
@@ -153,14 +154,15 @@ h1.logo {
   line-height: inherit;
 }
 
-.hero {
-  max-width: 860px;
+.hero,
+.content-sections {
+  max-width: var(--page-width);
   margin: 0 auto;
   padding: 110px 32px 90px;
 }
 
 .content-narrow {
-  max-width: 780px;
+  max-width: var(--page-width);
 }
 
 .tagline {
@@ -553,7 +555,7 @@ footer {
 .scholar-link { margin:30px 0 0; text-align:left; }
 .publication-section>h3,.publication-note h3 { margin-bottom:22px; font-size:1.45rem; }
 .publication-list { border-top:1px solid var(--border); }
-.publication-intro { max-width:none; white-space:nowrap; }
+.publication-intro { max-width:none; white-space:normal; }
 .publication-list article { display:grid; grid-template-columns:170px minmax(0,1fr); column-gap:30px; padding:32px 0; border-bottom:1px solid var(--border); }
 .publication-list article>span { color:var(--accent); font-size:.82rem; font-weight:600; letter-spacing:.05em; text-transform:uppercase; }
 .publication-list h4 {
@@ -581,8 +583,8 @@ footer {
 .publication-list sup { font-size:.68em; font-style:normal; vertical-align:super; }
 .publications-page .contribution-note { margin:18px 0 0; color:var(--muted); font-size:.84rem; font-style:italic; text-align:left; }
 
-.blog-page { max-width: 980px; }
-.blog-post { max-width: 760px; margin: 0 auto; padding-top: 32px; border-top: 1px solid var(--border); scroll-margin-top: 100px; }
+.blog-page { max-width: var(--page-width); }
+.blog-post { max-width: 100%; margin: 0 auto; padding-top: 32px; border-top: 1px solid var(--border); scroll-margin-top: 100px; }
 .blog-post > .blog-post-heading { position: static; background: none; border: 0; box-shadow: none; padding: 0; backdrop-filter: none; }
 .blog-post-heading h2, .blog-post-heading h3 { margin: 0 0 32px; font-size: clamp(1.65rem, 4vw, 2.5rem); line-height: 1.25; letter-spacing: -.025em; overflow-wrap: break-word; }
 .blog-post-body h4 { margin: 36px 0 16px; font-size: 1.3rem; line-height: 1.4; }
@@ -646,7 +648,8 @@ main, footer { position: relative; z-index: 1; }
     margin-left: 0;
   }
 
-  .hero {
+  .hero,
+  .content-sections {
     padding: 82px 24px 64px;
   }
 
@@ -745,14 +748,19 @@ main, footer { position: relative; z-index: 1; }
 .hero .post-list .post-overview { margin: 0; color: var(--muted); font-size: 1rem; line-height: 1.7; text-align: justify; }
 
 /* Comfortable reading layout for the full article. */
-.article-page .blog-heading { max-width: 720px; margin: 0 auto 32px; }
-.article-page .blog-post { max-width: 720px; }
+.article-page .blog-heading { max-width: 100%; margin: 0 auto 32px; }
+.article-page .blog-post { max-width: 100%; }
 .hero.article-page .blog-post-heading h2 {
   font-size: clamp(1.75rem, 4vw, 2.5rem);
   line-height: 1.3;
   letter-spacing: -.02em;
   margin-bottom: 32px;
-  text-wrap: balance;
+  width: 100%;
+  max-width: none;
+  text-wrap: wrap;
+  text-align: justify;
+  text-align-last: left;
+  text-justify: inter-word;
 }
 .hero.article-page .blog-post-body p,
 .article-page .blog-post-body li {
@@ -772,7 +780,43 @@ main, footer { position: relative; z-index: 1; }
 .article-page .blog-post-body li { padding-left: 4px; margin-bottom: 18px; }
 .hero.article-page .blog-post-source { font-size: .95rem; }
 @media (max-width: 480px) {
-  .hero.article-page { padding-left: 22px; padding-right: 22px; }
   .hero.article-page .blog-post-body p,
   .article-page .blog-post-body li { font-size: 1rem; line-height: 1.8; }
+}
+
+/* Home and Projects copy uses the shared page's full content width. */
+.home-page .intro,
+.projects-page .intro,
+.projects-page .project-card div p { max-width: none; }
+.projects-page .project-card > div { min-width: 0; overflow-wrap: break-word; }
+
+.hero.article-page .blog-post-heading h2 { margin-bottom: 16px; }
+.hero.article-page .blog-post-heading .post-published {
+  margin: 0 0 32px;
+  color: var(--muted);
+  font-size: .9rem;
+  line-height: 1.5;
+  text-align: left;
+}
+
+.hero .post-list .post-published {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: .9rem;
+  line-height: 1.5;
+  text-align: left;
+}
+
+/* Align the blog introduction with the full-width content below. */
+.blog-index .blog-heading,
+.blog-index .blog-heading .intro,
+.neurons-index .blog-heading,
+.neurons-index .blog-heading .intro { max-width: none; }
+
+.blog-post-heading .post-byline-date {
+  display: inline-block;
+  color: var(--muted);
+  font-weight: 400;
+  letter-spacing: normal;
+  text-transform: none;
 }
