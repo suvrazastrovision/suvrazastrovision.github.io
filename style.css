@@ -820,3 +820,15 @@ main, footer { position: relative; z-index: 1; }
   letter-spacing: normal;
   text-transform: none;
 }
+
+.perspective-index .blog-heading,
+.perspective-index .blog-heading .intro { max-width: none; }
+.book-review .blog-post-body { display: flow-root; }
+.book-review-photo { float: right; width: 38%; margin: 0 0 20px 28px; }
+.book-review-photo img { display: block; width: 100%; height: auto; border-radius: 8px; }
+.book-review-photo figcaption { margin-top: 12px; color: var(--muted); font-size: .9rem; line-height: 1.6; text-align: center; }
+.article-page .book-review .blog-post-body h3 { margin: 40px 0 16px; font-size: 1.3rem; line-height: 1.4; }
+
+@media (max-width: 600px) {
+  .book-review-photo { float: none; width: 100%; margin: 0 0 24px; }
+}
