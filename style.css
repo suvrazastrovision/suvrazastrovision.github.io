@@ -465,7 +465,7 @@ h1.logo {
   text-decoration: none;
 }
 
-.contact-intro { max-width: 760px; }
+.hero .contact-intro { max-width: none; text-align: justify; text-justify: inter-word; }
 
 .about-copy {
   margin-top: 0;
