@@ -832,3 +832,10 @@ main, footer { position: relative; z-index: 1; }
 @media (max-width: 600px) {
   .book-review-photo { float: none; width: 100%; margin: 0 0 24px; }
 }
+
+/* Give article openings room below the title and author details. */
+.hero.article-page .blog-post-heading { margin-bottom: 60px; }
+.hero.article-page .blog-post-heading h2 { margin-bottom: 0; }
+@media (max-width: 600px) {
+  .hero.article-page .blog-post-heading { margin-bottom: 44px; }
+}
