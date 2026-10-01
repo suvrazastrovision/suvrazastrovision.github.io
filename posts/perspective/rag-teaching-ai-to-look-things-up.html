@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="An accessible guide to retrieval-augmented generation, from TF-IDF and cosine similarity to scientific search and drug discovery." />
+  <title>RAG: Teaching AI to Look Things Up Before It Speaks | Suvra Nath</title>
+  <link rel="stylesheet" href="../../style.css?v=20261001-2" />
+</head>
+<body>
+  <header>
+    <nav class="nav">
+      <h1 class="logo"><a href="../../index.html">Suvra Nath</a></h1>
+      <ul>
+        <li><a href="../../index.html">Home</a></li>
+        <li><a href="../../projects.html">Projects</a></li>
+        <li><a href="../../publications.html">Publications</a></li>
+        <li><a href="../../blog.html" class="active">Blog</a></li>
+        <li><a href="../../about.html">About</a></li>
+        <li><a href="../../contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="hero blog-page article-page">
+    <div class="page-heading blog-heading">
+      <p class="tagline"><a href="../../perspective.html">&larr; Back to Perspective</a></p>
+    </div>
+
+    <article class="blog-post rag-article" aria-labelledby="rag-title">
+      <header class="blog-post-heading">
+        <p class="entry-kicker">Perspective &middot; AI explainer &middot; By Suvra Nath <span class="post-byline-date">&middot; Published <time datetime="2026-10-01">October 1, 2026</time></span></p>
+      </header>
+<script>
+window.MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] }, svg: { fontCache: 'global' } };
+</script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js"></script>
+
+<style>
+.rag-post{max-width:none;margin:0;padding:0;font:18px/1.7 Georgia,'Times New Roman',serif;color:inherit}
+.rag-post h1{font:700 2.1rem/1.2 system-ui,sans-serif;margin:0 0 .4em}
+.rag-post h2#rag-title{font:700 2.1rem/1.2 system-ui,sans-serif;margin:0 0 .4em}
+.rag-post h2{font:700 1.5rem/1.3 system-ui,sans-serif;margin:2.2em 0 .6em}
+.rag-post h3{font:700 1.2rem/1.3 system-ui,sans-serif;margin:1.8em 0 .5em}
+.rag-post .subtitle{font:italic 1.15rem/1.5 Georgia,serif;opacity:.75;margin-bottom:1.5em}
+.rag-post blockquote{margin:1.4em 0;padding:.6em 1.2em;border-left:4px solid #4a7bd0;background:rgba(74,123,208,.08);font-style:italic}
+.rag-post .flow{font:600 1rem/1.5 system-ui,sans-serif;text-align:center;padding:1em;margin:1.4em 0;border:1px solid rgba(128,128,128,.4);border-radius:8px}
+.rag-post .callout{position:relative;margin:1.8em 0;padding:1.1em 1.3em 1.1em 1.5em;border-radius:6px 12px 12px 6px;border-left:5px solid #2f9e8f;background:linear-gradient(90deg,rgba(47,158,143,.16),rgba(47,158,143,.04));font:600 1.1rem/1.5 Georgia,serif}
+.rag-post .callout::before{content:"Key point";display:block;margin-bottom:.3em;font:700 .7rem/1 system-ui,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#2f9e8f}
+.rag-post .callout.warn{border-left-color:#d9822b;background:linear-gradient(90deg,rgba(217,130,43,.18),rgba(217,130,43,.04))}
+.rag-post .callout.warn::before{content:"Keep in mind";color:#d9822b}
+.rag-post code{padding:.1em .4em;border-radius:4px;background:rgba(74,123,208,.12);color:#2f5fb3;font:.9em ui-monospace,Menlo,monospace;letter-spacing:.08em}
+.rag-post .kmer{margin:1.8em 0;padding:1.2em 1em;border:1px solid rgba(74,123,208,.35);border-radius:12px;text-align:center;overflow-x:auto}
+.rag-post .kmer .row{display:flex;justify-content:center;gap:6px;margin:.4em 0;white-space:nowrap}
+.rag-post .kmer .lbl{font:600 .7rem/1 system-ui,sans-serif;letter-spacing:.1em;text-transform:uppercase;opacity:.6;margin-top:1em}
+.rag-post .kmer span.k{min-width:3.2em;padding:.4em .5em;border-radius:8px;border:1.5px solid rgba(128,128,128,.45);font:600 .95rem/1 ui-monospace,Menlo,monospace;letter-spacing:.1em}
+.rag-post .kmer span.k.hit{background:#4a7bd0;border-color:#4a7bd0;color:#fff}
+.rag-post .kmer .count{margin-top:1em;font:500 .9rem/1.4 system-ui,sans-serif}
+.rag-post .eq{overflow-x:auto;padding:.3em 0}
+.rag-post ul{padding-left:1.3em}
+.rag-post p,.rag-post li{text-align:justify;text-justify:inter-word;hyphens:auto;-webkit-hyphens:auto}
+.rag-post p.subtitle{text-align:left;hyphens:none}
+.rag-post .pipe{margin:2em auto;max-width:460px;font:500 .95rem/1.3 system-ui,sans-serif;text-align:center}
+.rag-post .pipe .node{padding:.65em 1em;border:1.5px solid #4a7bd0;border-radius:999px}
+.rag-post .pipe .node.end{background:#4a7bd0;color:#fff;font-weight:600}
+.rag-post .pipe .arrow{height:22px;position:relative}
+.rag-post .pipe .arrow::before{content:"";position:absolute;left:50%;top:0;bottom:6px;border-left:1.5px solid #4a7bd0}
+.rag-post .pipe .arrow::after{content:"";position:absolute;left:50%;bottom:0;margin-left:-4px;border:4px solid transparent;border-top:6px solid #4a7bd0;border-bottom:0}
+.rag-post .pipe .split{display:flex;gap:12px}
+.rag-post .pipe .split .node{flex:1;border-radius:10px;border-style:dashed}
+.rag-post .pipe .split small{display:block;font-weight:400;opacity:.7;margin-top:.25em}
+.rag-post hr{border:0;border-top:1px solid rgba(128,128,128,.4);margin:2.5em 0}
+</style>
+
+<div class="rag-post blog-post-body">
+<h2 id="rag-title">RAG: Teaching AI to Look Things Up Before It Speaks</h2>
+<p class="subtitle">From TF–IDF and cosine similarity to biological knowledge retrieval — and why this could become surprisingly important for drug discovery</p>
+
+<p>You know that colleague who seems to know everything? You ask them about a gene, a pathway, or some obscure paper from 2017, and somehow they have an answer.</p>
+<p>Now imagine that colleague has read millions of papers. Sounds great — except there is one problem. Sometimes they confidently remember something that isn’t actually true.</p>
+<p>That, in an admittedly simplified analogy, is one of the problems we have with large language models (LLMs). LLMs can encode an extraordinary amount of information in their parameters. But their knowledge is imperfect, frozen at particular points in training, and they can generate statements that sound completely plausible while being factually wrong. They also cannot magically know the contents of your unpublished RNA-seq dataset, your internal compound-screening reports, or the paper that appeared yesterday.</p>
+<p>So what if, instead of asking the model to remember everything, we let it look things up first? That is the basic idea behind <strong>Retrieval-Augmented Generation</strong>, or RAG. And the interesting part is that underneath one of the most talked-about ideas in modern AI sits some wonderfully classical mathematics.</p>
+
+<h2>So, what exactly is RAG?</h2>
+<p>Think of an LLM as a scientist sitting an exam. Without RAG, it is essentially a closed-book exam. You ask:</p>
+<blockquote>“What evidence links microglial activation to synaptic dysfunction in Alzheimer’s disease?”</blockquote>
+<p>The model has to answer largely from patterns encoded during training. With RAG, we turn it into an open-book exam. Before answering, the system searches a collection — perhaps PubMed abstracts, internal reports, experimental protocols, clinical-trial documents, or your own laboratory data — retrieves passages that appear relevant, and places them in front of the model. The LLM then generates its answer using both your question and those retrieved passages.</p>
+<div class="flow">Question → Retrieve evidence → Give evidence to LLM → Generate answer</div>
+<p>RAG has two stages: <em>retrieval</em>, which identifies relevant passages, followed by <em>generation</em>, where the LLM answers while conditioned on those passages. Simple idea. Big consequences.</p>
+
+<h2>But RAG didn’t suddenly appear with ChatGPT</h2>
+<p>Humans have been trying to make computers retrieve answers for almost as long as computers have existed. In 1961, the BASEBALL question-answering system could answer questions about baseball statistics stored in a structured database. A few years later, systems were already retrieving candidate sentences based partly on weighted overlap between the words in a question and words in possible answers.</p>
+<p>Then information retrieval became its own major field. Search engines essentially asked:</p>
+<blockquote>Given millions of documents and a few words typed by a user, which documents should appear first?</blockquote>
+<p>That question gave us ideas such as the vector-space model, TF–IDF, inverted indexes, BM25 and eventually dense neural retrieval. By the 1990s, TREC provided standardized evaluation of information-retrieval systems. Neural retrieval and machine reading followed, and by the late 2010s retrieval was increasingly being combined with neural language models. The term Retrieval-Augmented Generation became widely established with the 2020 RAG work of Lewis and colleagues.</p>
+<p>So RAG isn’t really one completely new trick. It is more like a marriage between two mature technologies: <strong>information retrieval + generative language models</strong>. And to understand the first half of that marriage, we need to talk about TF–IDF.</p>
+
+<h2>TF–IDF sounds horrible. It really isn’t.</h2>
+<p>Imagine I give you 10,000 neuroscience papers. Now you search: <strong>“HTT CAG repeat expansion”</strong>. Which words should matter most?</p>
+<ul>
+<li>The word “the” might occur hundreds of thousands of times. Completely useless.</li>
+<li>“Neuron” might occur in thousands of papers. Useful, but not very specific.</li>
+<li>“HTT” may occur in a much smaller subset.</li>
+<li>And the combination of HTT + CAG + repeat expansion suddenly becomes extremely informative.</li>
+</ul>
+<p>TF–IDF is essentially a mathematical way of capturing that intuition. It asks two questions: <em>How much does this term matter inside this document?</em> and <em>How unusual is this term across all my documents?</em></p>
+
+<h3>Part 1: Term Frequency — TF</h3>
+<p>Suppose one paper mentions HTT once and another mentions it 20 times. Intuitively, HTT is probably more central to the second paper. That is term frequency. A simple version would just count occurrences, but retrieval systems often damp repeated counts logarithmically, for terms that occur in the document:</p>
+<div class="eq">\[ TF(t,d)=1+\log_{10}\big(\text{count}(t,d)\big) \]</div>
+<p>Why use a logarithm? Because mentioning HTT 100 times doesn’t make a paper 100 times more relevant than mentioning it once.</p>
+<ul>
+<li>1 occurrence → TF = 1</li>
+<li>10 occurrences → TF = 2</li>
+<li>100 occurrences → TF = 3</li>
+</ul>
+<p>So repetition matters — just not infinitely.</p>
+
+<h3>Part 2: IDF — rewarding the unusual words</h3>
+<p>Now comes the clever bit. Imagine HTT occurs in only 200 of your 100,000 papers. That makes it informative. But suppose the word “cell” occurs in 90,000. Not nearly as discriminating. Inverse Document Frequency captures this:</p>
+<div class="eq">\[ IDF(t)=\log_{10}\left(\frac{N}{df(t)}\right) \]</div>
+<p>where \(N\) is the total number of documents and \(df(t)\) is the number of documents containing term \(t\). Rare terms receive larger weights; common terms receive smaller ones. And if a term appears in every document, then:</p>
+<div class="eq">\[ IDF=\log_{10}(1)=0 \]</div>
+<p>In other words: <em>if everybody is saying it, it isn’t very useful for figuring out which document you want.</em> That is the heart of IDF. Finally:</p>
+<div class="eq">\[ TF\text{-}IDF = TF \times IDF \]</div>
+<p>That’s it. A term becomes important when it is frequent enough locally but distinctive globally.</p>
+
+<h2>Okay — but how does a computer retrieve a paper?</h2>
+<p>This is my favourite part, because retrieval suddenly becomes geometry. Imagine three tiny, artificial “papers”:</p>
+<ul>
+<li><strong>Paper A:</strong> HTT CAG expansion</li>
+<li><strong>Paper B:</strong> HTT expression</li>
+<li><strong>Paper C:</strong> APP amyloid</li>
+</ul>
+<p>And we search: <strong>Query: HTT CAG</strong>. TF–IDF converts each document into a vector. Instead of thinking of Paper A as a sentence, imagine it as a vector over the vocabulary</p>
+<div class="eq">\[ [HTT,\ CAG,\ expansion,\ expression,\ APP,\ amyloid] \]</div>
+<p>with a TF–IDF weight sitting in each position. Most positions are zero. Paper A points strongly toward HTT + CAG + expansion. Paper C points toward APP + amyloid. Our query points toward HTT + CAG. Now imagine those vectors as arrows in space. The retrieval system asks:</p>
+<blockquote>Which document-arrow points in roughly the same direction as my query-arrow?</blockquote>
+<p>That is where cosine similarity enters:</p>
+<div class="eq">\[ \cos(\theta)=\frac{\mathbf q\cdot\mathbf d}{\|\mathbf q\|\,\|\mathbf d\|} \]</div>
+<p>You don’t really need to fear the equation. The numerator measures how much the two vectors overlap. The denominator normalizes their lengths. And the result tells us how closely their directions align. Recall that the dot product of two vectors can be written in two equivalent ways:</p>
+<div class="eq">\[ \mathbf a\cdot\mathbf b=a_xb_x+a_yb_y=\lVert\mathbf a\rVert\lVert\mathbf b\rVert\cos\theta \]</div>
+<p>If two vectors point in similar directions, their cosine similarity is high. (If the angle between them is obtuse, the dot product is negative: for example, \(3(-1)+0.5(3)=-1.5\).) So our HTT CAG query would naturally sit much closer to “HTT CAG expansion” than to “APP amyloid”. TF–IDF document and query vectors are compared using cosine similarity, and documents with higher similarity are ranked higher. And suddenly a search engine starts to look less mysterious.</p>
+
+<h2>Sparse retrieval: the librarian who remembers exact words</h2>
+<p>TF–IDF is what we call <strong>sparse retrieval</strong>. Why sparse? Because imagine a vocabulary containing 100,000 words. A particular paper may contain only a few thousand of them. So its vector looks roughly like:</p>
+<div class="eq">\[ [0,\ 0,\ 0.82,\ 0,\ 0,\ 0,\ 1.31,\ 0,\ 0,\ldots] \]</div>
+<p>Mostly zeros. Sparse retrieval is extremely useful when exact terminology matters, and biology is absolutely full of exact terminology: TP53. BRCA1. rs429358. IL6. EGFR T790M. CDKN2A. If I search for EGFR T790M, I probably want a system to care enormously about those exact characters.</p>
+<p>But sparse retrieval has an annoying weakness. Imagine I search:</p>
+<blockquote>“brain immune cells involved in Alzheimer’s disease”</blockquote>
+<p>while the paper says “microglial activation in AD”. A human immediately understands the connection. Pure keyword matching may struggle because the words don’t overlap sufficiently. This is called the <strong>vocabulary mismatch problem</strong>.</p>
+
+<h2>Dense retrieval: searching by meaning instead of spelling</h2>
+<p>Dense retrieval takes a very different approach. Instead of representing a document by thousands of mostly-zero word coordinates, a neural encoder converts the whole passage into a dense embedding. Conceptually:</p>
+<div class="eq">\[ \text{“microglial activation in AD”} \rightarrow [0.21,-0.74,0.13,\ldots] \]</div>
+<p>and:</p>
+<div class="eq">\[ \text{“brain immune cells in Alzheimer's disease”} \rightarrow [0.18,-0.69,0.16,\ldots] \]</div>
+<p>The numbers themselves don’t correspond neatly to individual words. Instead, the model has learned a representation in which semantically related texts can occupy nearby regions of embedding space. Now the system can potentially retrieve something relevant even when the wording is different. In a common bi-encoder architecture:</p>
+<div class="eq">\[ z_q=Encoder_Q(q) \qquad z_d=Encoder_D(d) \]</div>
+<p>and relevance can be scored using:</p>
+<div class="eq">\[ score(q,d)=z_q\cdot z_d \]</div>
+<p>The useful engineering trick is that document embeddings can be calculated before anyone asks a question and stored. When a query arrives, only the query needs to be embedded and compared with the stored vectors. So I like thinking about it this way:</p>
+<ul>
+<li><strong>Sparse search asks:</strong> “Did you use the words I’m looking for?”</li>
+<li><strong>Dense search asks:</strong> “Are you talking about the thing I’m looking for?”</li>
+</ul>
+<p>Neither is perfect. Which is exactly why combining them can be powerful.</p>
+
+<h2>Hybrid retrieval: because biology needs both</h2>
+<p>Suppose I ask:</p>
+<blockquote>“What evidence links APOE4 to microglial lipid dysregulation in Alzheimer’s disease?”</blockquote>
+<p>I care about exact entities: APOE4. But I also care about broader concepts: lipid metabolism, lipid droplets, microglial states, cholesterol handling, neuroinflammation. Sparse retrieval is excellent at protecting the exact biology. Dense retrieval can help find semantically related passages that use different language. A practical system can therefore do something like:</p>
+<div class="pipe" role="img" aria-label="Hybrid retrieval pipeline: query, sparse and dense retrieval, candidate passages, reranker, top evidence, LLM, answer with citations">
+<div class="node">Query</div>
+<div class="arrow"></div>
+<div class="split">
+<div class="node">Sparse retrieval<small>exact terms</small></div>
+<div class="node">Dense retrieval<small>meaning</small></div>
+</div>
+<div class="arrow"></div>
+<div class="node">Candidate passages</div>
+<div class="arrow"></div>
+<div class="node">Reranker</div>
+<div class="arrow"></div>
+<div class="node">Top evidence</div>
+<div class="arrow"></div>
+<div class="node">LLM</div>
+<div class="arrow"></div>
+<div class="node end">Answer + citations</div>
+</div>
+<p>The general strategy is that inexpensive retrieval generates candidates first, followed by a more computationally expensive neural model that reranks only the top results. For scientific applications, that balance matters. We don’t want semantic cleverness to make the system forget that APOE, APOE4, and some vaguely related lipid gene are not interchangeable biological entities.</p>
+
+<h2>A tiny DNA example makes this even more intuitive</h2>
+<p>Let’s leave papers for a moment. Suppose we have <code>CAGCAGCAG</code>. If we slide a three-base window across it:</p>
+<div class="kmer" role="img" aria-label="Sliding 3-base window over CAGCAGCAG gives CAG, AGC, GCA, CAG, AGC, GCA, CAG">
+<div class="lbl">Sliding window (k = 3)</div>
+<div class="row"><span class="k hit">CAG</span><span class="k">AGC</span><span class="k">GCA</span><span class="k hit">CAG</span><span class="k">AGC</span><span class="k">GCA</span><span class="k hit">CAG</span></div>
+<div class="count"><strong>CAG</strong> ×3 &nbsp;·&nbsp; AGC ×2 &nbsp;·&nbsp; GCA ×2</div>
+</div>
+<p>CAG occurs three times. So, conceptually, we can treat DNA k-mers a little like words. A sequence becomes a collection of short motifs. We can count them, weight them, and compare sequence representations. This analogy is useful because biology is full of “languages”:</p>
+<ul>
+<li>DNA has nucleotides.</li>
+<li>Proteins have amino acids.</li>
+<li>Single-cell data contains patterns of gene expression.</li>
+<li>Chemical structures have molecular substructures.</li>
+<li>Scientific papers contain natural language.</li>
+</ul>
+<p>Of course, the analogy has limits. TF–IDF over k-mers is not sequence alignment, does not preserve all positional information, and certainly does not prove biological function. But the underlying computational idea is beautiful:</p>
+<blockquote>Turn complicated objects into representations that allow useful similarity to be measured.</blockquote>
+<p>That idea connects classical information retrieval to much of modern machine learning.</p>
+
+<h2>But how do we know whether a RAG system is actually good?</h2>
+<p>This part matters enormously. A RAG system can produce an incredibly convincing answer from completely irrelevant evidence. So evaluating only the final prose is not enough. We need to evaluate retrieval and generation separately. For retrieval, two old metrics remain wonderfully useful.</p>
+<h3>Precision</h3>
+<p>Of everything I retrieved, how much was actually relevant?</p>
+<div class="eq">\[ Precision=\frac{\text{relevant retrieved documents}}{\text{all retrieved documents}} \]</div>
+<h3>Recall</h3>
+<p>Of all the relevant information that existed, how much did I actually find?</p>
+<div class="eq">\[ Recall=\frac{\text{relevant retrieved documents}}{\text{all relevant documents}} \]</div>
+<p>These definitions extend to ranked retrieval, where we also care about whether relevant documents appear near the top. For a scientific RAG system, though, I would go further. I’d ask:</p>
+<ul>
+<li>Did it retrieve the right paper?</li>
+<li>Did it retrieve the right passage from that paper?</li>
+<li>Did the answer actually use that passage correctly?</li>
+<li>Does every major scientific claim have evidence?</li>
+<li>Did the model exaggerate what the experiment demonstrated?</li>
+</ul>
+<p>That last question is especially important. Imagine a paper reports <em>“Gene X was associated with neuronal degeneration.”</em> And the RAG system writes <em>“Gene X causes neuronal degeneration.”</em> Perfect retrieval. Bad science. RAG doesn’t eliminate scientific reasoning errors. It simply gives us a much better chance of seeing where the answer came from.</p>
+
+<h2>This is where RAG gets really interesting for computational biology</h2>
+<p>Biology doesn’t exactly suffer from a lack of data. We have the opposite problem. Papers. Preprints. Clinical trials. RNA-seq. Single-cell atlases. Proteomics. CRISPR screens. Imaging. Protein structures. Perturbation datasets. Drug-response databases. The difficult part is increasingly connecting them.</p>
+<p>Imagine finishing a single-cell RNA-seq experiment and discovering a disease-associated neuronal population with Gene A ↑, Gene B ↑, Gene C ↓. Instead of manually spending days searching papers and databases, you could ask:</p>
+<blockquote>“What mechanisms could explain this transcriptional state?”</blockquote>
+<p>A well-designed scientific RAG system might retrieve evidence connecting those genes to pathways, perturbation studies, disease models, compounds and previous experiments. But importantly, it could return the evidence <em>with</em> the hypothesis. That changes the interaction from “AI says Gene X matters” to “AI suggests Gene X may matter — here are the experiments and papers that led it there.” For science, that distinction is huge.</p>
+
+<h2>And drug discovery might be one of the most interesting use cases</h2>
+<p>Imagine a researcher investigating a disease-associated cell state. The question isn’t simply “Which drugs treat this disease?” It might be:</p>
+<blockquote>“Which perturbations could reverse this molecular signature, through mechanisms supported by evidence in this cell type?”</blockquote>
+<p>Now your retrieval layer could potentially connect:</p>
+<div class="flow">disease transcriptomics → target biology → perturbation signatures → compounds → mechanism of action → preclinical evidence → clinical evidence</div>
+<p>The LLM’s job isn’t to magically discover the drug. Its job becomes closer to a scientific navigator across heterogeneous evidence. That could help researchers identify connections they might otherwise miss, surface contradictory findings, and generate hypotheses worth testing. And that’s an important distinction:</p>
+<div class="callout">RAG can accelerate hypothesis generation. It does not replace experimental validation.</div>
+
+<h2>A few reality checks</h2>
+<p>This technology is exciting, but there are some traps worth keeping firmly in view.</p>
+<ul>
+<li>A RAG system is only as useful as what it can retrieve.</li>
+<li>If your database contains bad science, RAG can retrieve bad science.</li>
+<li>If the relevant paper isn’t indexed, the model cannot retrieve it.</li>
+<li>If your chunks split an important experimental result away from its context, retrieval can become misleading.</li>
+<li>If the embedding model doesn’t understand biological terminology well, semantically important evidence may never appear.</li>
+</ul>
+<p>And perhaps most importantly:</p>
+<div class="callout warn">Retrieved does not mean true.</div>
+<p>A paper can be relevant and still be wrong. Two papers can be relevant and contradict one another. A mouse experiment can be relevant but not establish what happens in humans. A tumour-cell-line result may not generalize to primary tissue. Those distinctions are exactly where scientific RAG needs to become more sophisticated than ordinary document search.</p>
+</div>
+    </article>
+  </main>
+
+  <footer><p>&copy; 2026 Suvra Nath</p></footer>
+  <script src="../../site.js?v=20260814-2"></script>
+  <script src="../../dynamic-backdrop.js?v=20260814-3"></script>
+  <script data-goatcounter="https://suvrazastrovision.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body>
+</html>
