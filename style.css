@@ -807,6 +807,56 @@ main, footer { position: relative; z-index: 1; }
   text-align: left;
 }
 
+.hero .post-external-link {
+  margin: 12px 0 0;
+  font-size: .9rem;
+  line-height: 1.5;
+  text-align: left;
+}
+
+.hero a.medium-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 100%;
+  min-height: 44px;
+  padding: 8px 12px;
+  box-sizing: border-box;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--text);
+  line-height: 1.4;
+  text-align: left;
+  hyphens: none;
+  vertical-align: middle;
+  transition: background-color .2s ease, border-color .2s ease;
+}
+.hero a.medium-link:hover {
+  background: var(--accent-light);
+  border-color: var(--accent);
+}
+.hero a.medium-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+.medium-link-logo {
+  display: block;
+  flex: 0 0 28px;
+  width: 28px;
+  height: 28px;
+  overflow: hidden;
+  border-radius: 6px;
+  background: #000;
+}
+.medium-link-logo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.04);
+}
+
 /* Align the blog introduction with the full-width content below. */
 .blog-index .blog-heading,
 .blog-index .blog-heading .intro,
