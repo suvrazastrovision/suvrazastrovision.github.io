@@ -515,6 +515,7 @@ h1.logo {
   grid-template-columns: minmax(0, 1fr);
   padding: 38px 0;
   border-bottom: 1px solid var(--border);
+  scroll-margin-top: 110px;
 }
 
 .project-card h3 {
