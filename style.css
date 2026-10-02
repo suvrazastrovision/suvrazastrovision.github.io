@@ -512,17 +512,9 @@ h1.logo {
 
 .project-card {
   display: grid;
-  grid-template-columns: 64px 1fr;
-  gap: 24px;
+  grid-template-columns: minmax(0, 1fr);
   padding: 38px 0;
   border-bottom: 1px solid var(--border);
-}
-
-.project-card .project-number {
-  margin: 3px 0 0;
-  color: var(--soft);
-  font-size: 0.9rem;
-  text-align: left;
 }
 
 .project-card h3 {
@@ -540,6 +532,74 @@ h1.logo {
 .project-card a {
   display: inline-block;
   font-size: 0.95rem;
+}
+
+.project-card .project-card-link {
+  display: block;
+  margin: -18px -20px;
+  padding: 18px 20px;
+  border: 1px solid transparent;
+  border-radius: 14px;
+  color: var(--text);
+  text-decoration: none;
+  transition: transform .2s ease, background-color .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+
+.project-card .project-card-link:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+  background: var(--surface);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, .12);
+}
+
+.project-card .project-card-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+.project-card .project-card-link > p {
+  margin: 0;
+  max-width: none;
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.75;
+  text-align: left;
+}
+
+.project-card-kicker {
+  display: block;
+  margin-bottom: 9px;
+  color: var(--accent);
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.project-keywords {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin: 22px 0;
+}
+
+.project-keywords > span {
+  padding: 5px 9px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--muted);
+  font-size: .76rem;
+  line-height: 1.35;
+}
+
+.project-card-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--accent);
+  font-size: .92rem;
+  font-weight: 700;
 }
 
 footer {
@@ -698,8 +758,7 @@ main, footer { position: relative; z-index: 1; }
   }
 
   .project-card {
-    grid-template-columns: 36px 1fr;
-    gap: 12px;
+    grid-template-columns: minmax(0, 1fr);
     padding: 30px 0;
   }
 

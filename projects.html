@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Projects | Suvra Nath</title>
-  <link rel="stylesheet" href="style.css?v=20260925-7" />
+  <link rel="stylesheet" href="style.css?v=20261002-3" />
 </head>
 <body>
   <header>
@@ -29,8 +29,21 @@
     <p class="intro">Selected software, data, and analytics projects spanning translational biology and real-world healthcare data.</p>
 
     <section class="project-list" aria-label="Selected projects">
+      <article class="project-card" id="cloud-dia-proteomics">
+        <a class="project-card-link" href="https://github.com/suvrazastrovision/nf-proteomics-quant" target="_blank" rel="noopener noreferrer" aria-label="View the Cloud-Based DIA Proteomics Pipeline on GitHub">
+          <span class="project-card-kicker">Cloud infrastructure &middot; Proteomics</span>
+          <h3>Cloud-Based DIA Proteomics Pipeline</h3>
+          <p>
+            Designed and validated a reproducible AWS cloud pipeline for automated Data-Independent Acquisition (DIA) proteomics quantification. The pipeline moves raw mass-spectrometry data through a secure S3-to-EC2/Batch workflow, orchestrates multi-stage processing with Nextflow, and runs DIA-NN in containerized environments - transforming instrument RAW files into analysis-ready protein/precursor matrices, QC visualizations, and reproducible HTML reports, with built-in resumability, provenance tracking, and checksummed archival.
+          </p>
+          <span class="project-keywords" aria-label="Technologies used">
+            <span>Cloud Engineering</span><span>AWS</span><span>Nextflow</span><span>Docker</span><span>DIA-NN</span><span>Proteomics</span>
+          </span>
+          <span class="project-card-cta">View project on GitHub <span aria-hidden="true">&nearr;</span></span>
+        </a>
+      </article>
+
       <article class="project-card" id="multimodal-omics">
-        <p class="project-number">01</p>
         <div>
           <h3>Multimodal Omics Integration</h3>
           <p>
@@ -42,7 +55,6 @@
       </article>
 
       <article class="project-card" id="neural-imaging">
-        <p class="project-number">02</p>
         <div>
           <h3>Neural Imaging &amp; Quantitative Analysis</h3>
           <p>
@@ -54,7 +66,6 @@
       </article>
 
       <article class="project-card" id="drug-assist">
-        <p class="project-number">03</p>
         <div>
           <h3>Drug Assist</h3>
           <p>
@@ -65,7 +76,6 @@
       </article>
 
       <article class="project-card" id="computational-discovery">
-        <p class="project-number">04</p>
         <div>
           <h3>Machine Learning for Translational Discovery</h3>
           <p>
