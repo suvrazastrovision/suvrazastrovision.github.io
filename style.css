@@ -527,7 +527,7 @@ h1.logo {
 .project-card div p {
   margin: 0 0 14px;
   max-width: 640px;
-  text-align: left;
+  text-align: justify;
 }
 
 .project-card a {
@@ -564,7 +564,7 @@ h1.logo {
   color: var(--muted);
   font-size: 1rem;
   line-height: 1.75;
-  text-align: left;
+  text-align: justify;
 }
 
 .project-card-kicker {
@@ -609,10 +609,6 @@ h1.logo {
   color: var(--muted);
   font-size: 1rem;
   line-height: 1.75;
-}
-
-#neuromac-single-cell-analysis .project-description {
-  text-align: justify;
 }
 
 .project-card-actions {
