@@ -603,6 +603,32 @@ h1.logo {
   font-weight: 700;
 }
 
+.project-card .project-description {
+  margin-bottom: 0;
+  max-width: none;
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+#neuromac-single-cell-analysis .project-description {
+  text-align: justify;
+}
+
+.project-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+}
+
+.project-card .project-card-actions .project-card-cta {
+  padding-bottom: 3px;
+}
+
+.project-card .project-reference-link {
+  color: var(--muted);
+}
+
 footer {
   text-align: center;
   padding: 34px 20px;
