@@ -112,7 +112,7 @@ window.MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]
 </ul>
 <p>TF–IDF is essentially a mathematical way of capturing that intuition. It asks two questions: <em>How much does this term matter inside this document?</em> and <em>How unusual is this term across all my documents?</em></p>
 
-<h3>Part 1: Term Frequency — TF</h3>
+<h3>Part 1: Term Frequency - TF</h3>
 <p>Suppose one paper mentions HTT once and another mentions it 20 times. Intuitively, HTT is probably more central to the second paper. That is term frequency. A simple version would just count occurrences, but retrieval systems often damp repeated counts logarithmically, for terms that occur in the document:</p>
 <div class="eq">\[ TF(t,d)=1+\log_{10}\big(\text{count}(t,d)\big) \]</div>
 <p>Why use a logarithm? Because mentioning HTT 100 times doesn’t make a paper 100 times more relevant than mentioning it once.</p>
