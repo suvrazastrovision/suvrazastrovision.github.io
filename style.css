@@ -611,20 +611,6 @@ h1.logo {
   line-height: 1.75;
 }
 
-.project-card-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px 24px;
-}
-
-.project-card .project-card-actions .project-card-cta {
-  padding-bottom: 3px;
-}
-
-.project-card .project-reference-link {
-  color: var(--muted);
-}
-
 footer {
   text-align: center;
   padding: 34px 20px;
