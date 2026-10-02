@@ -889,3 +889,84 @@ main, footer { position: relative; z-index: 1; }
 @media (max-width: 600px) {
   .hero.article-page .blog-post-heading { margin-bottom: 44px; }
 }
+
+/* Shared controls shown below every blog post. */
+.post-interactions {
+  clear: both;
+  margin-top: 56px;
+  padding-top: 28px;
+  border-top: 1px solid var(--border);
+}
+.post-action-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.post-like-button,
+.post-share-link {
+  min-height: 42px;
+  box-sizing: border-box;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  cursor: pointer;
+  transition: color .2s ease, background-color .2s ease, border-color .2s ease, transform .2s ease;
+}
+.post-like-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 9px 16px;
+}
+.post-like-button[aria-pressed="true"] {
+  color: var(--accent);
+  background: var(--accent-light);
+  border-color: var(--accent);
+}
+.post-like-button:hover,
+.post-share-link:hover {
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+.post-like-button:focus-visible,
+.post-share-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+.post-share {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.post-share-label { margin-right: 2px; color: var(--muted); font-size: .92rem; }
+.hero a.post-share-link,
+.post-share-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 42px;
+  padding: 7px 12px;
+  text-decoration: none;
+  line-height: 1;
+}
+.post-share-whatsapp,
+.post-copy-link { font-size: .86rem; }
+.post-comments {
+  margin-top: 48px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+}
+.post-comments h3 { margin: 0 0 8px; font-size: 1.35rem; }
+.hero .post-comments > p { margin: 0 0 24px; color: var(--muted); font-size: .92rem; }
+.post-comments-thread { min-height: 80px; }
+.utterances { max-width: 100%; }
+@media (max-width: 600px) {
+  .post-action-bar { align-items: flex-start; }
+  .post-share { width: 100%; }
+  .post-share-label { width: 100%; }
+}
